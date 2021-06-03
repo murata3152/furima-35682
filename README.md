@@ -17,14 +17,13 @@
 ### Association
 
 has_many :items
-has_one :buy
+has_many :buys
 
 ## items テーブル
 
 | Column          | Type       | Options                              |
 | --------------- | ---------- | ------------------------------------ |
 | item_name       | string     | null: false                          |
-| image           | has_one_attached                                  |
 | price           | integer    | null: false                          |
 | details         | text       | null: false                          |
 | status_id       | integer    | null: false                          |
@@ -33,7 +32,7 @@ has_one :buy
 | day_id          | integer    | null: false                          |
 | category_id     | integer    | null: false                          |
 | user            | references | null: false, foreign_key: true       |
-
+<!-- imageはactive_storageを使用 -->
 
 ### Association
 
@@ -54,14 +53,15 @@ belongs_to :item
 
 ## address テーブル
 
-| Column         | Type      | Options                              |
-| -------------- | --------- | ------------------------------------ |
-| postal_code    | string    | null: false                          |
-| prefecture_id  | integer   | null: false                          |
-| municipality   | text      | null: false                          |
-| address        | string    | null: false                          |
-| building_name  | text      | null: false                          |
-| phone_number   | string    | null: false                          |
+| Column         | Type       | Options                              |
+| -------------- | ---------- | ------------------------------------ |
+| postal_code    | string     | null: false                          |
+| prefecture_id  | integer    | null: false                          |
+| municipality   | string     | null: false                          |
+| address        | string     | null: false                          |
+| building_name  | string     |                                      |
+| phone_number   | string     | null: false                          |
+| buy            | references | null: false,  foreign_key: true      |
 
 
 ### Association
