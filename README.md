@@ -2,26 +2,22 @@
 
 ## users テーブル
 
-| Column                          | Type   | Options     |
-| ------------------------------- | ------ | ----------- |
-| nickname                        | string | null: false |
-| last_name                       | string | null: false |
-| first_name                      | string | null: false |
-| last_name_details               | string | null: false |
-| first_name_details              | string | null: false |
-| birthday                        | string | null: false |
-| email                           | string | null: false |
-| password                        | text   | null: false |
-| password_confirmation           | text   | null: false |
+| Column                          | Type   | Options                  |
+| ------------------------------- | ------ | ------------------------ |
+| nickname                        | string | null: false              |
+| last_name                       | string | null: false              |
+| first_name                      | string | null: false              |
+| last_name_details               | string | null: false              |
+| first_name_details              | string | null: false              |
+| birthday                        | date   | null: false              |
+| email                           | string | null: false, unique:true |
+| encrypted_password              | text   | null: false              |
+
 
 ### Association
 
 has_many :items
-has_many :buys_items, foreign_key: "buyer_id", class_name: "Item"
-has_many :selling_items, -> { where("buyer_id is NULL") }, foreign_key: "seller_id", class_name: "Item"
-has_many :sold_items, -> { where("buyer_id is not NULL") }, foreign_key: "seller_id", class_name: "Item"
-
-
+has_one :buy
 
 ## items テーブル
 
@@ -29,20 +25,19 @@ has_many :sold_items, -> { where("buyer_id is not NULL") }, foreign_key: "seller
 | --------------- | ---------- | ------------------------------------ |
 | item_name       | string     | null: false                          |
 | image           | has_one_attached                                  |
-| price           | string     | null: false                          |
+| price           | integer    | null: false                          |
 | details         | text       | null: false                          |
-| status          | text       | null: false                          |
-| postage         | string     | null: false                          |
-| area            | text       | null: false                          |
-| days            | string     | null: false                          |
-| seller_id       | references |  null: false, foreign_key: seller_id |
-| buyer_id        | references |  null: false, foreign_key: buyer_id  |
+| status_id       | integer    | null: false                          |
+| postage_id      | integer    | null: false                          |
+| area_id         | integer    | null: false                          |
+| day_id          | integer    | null: false                          |
+| category_id     | integer    | null: false                          |
+| user            | references | null: false, foreign_key: true       |
+
 
 ### Association
 
 belongs_to :user
-belongs_to :seller, class_name: "User"
-belongs_to :buyer,  class_name: "User"
 has_one :buy
 
 ## buys テーブル
@@ -50,18 +45,23 @@ has_one :buy
 | Column      | Type       | Options                        |
 | ----------- | ---------- | ------------------------------ |
 | user        | references | null: false, foreign_key: true |
-| items       | references | null: false, foreign_key: true |
+| item        | references | null: false, foreign_key: true |
 
 ### Association
 has_one :address
+belongs_to :user
 belongs_to :item
 
 ## address テーブル
 
-| Column      | Type       | Options                        |
-| ----------- | ---------- | ------------------------------ |
-| user        | references | null: false, foreign_key: true |
-| items       | references | null: false, foreign_key: true |
+| Column         | Type      | Options                              |
+| -------------- | --------- | ------------------------------------ |
+| postal_code    | string    | null: false                          |
+| prefecture_id  | integer   | null: false                          |
+| municipality   | text      | null: false                          |
+| address        | string    | null: false                          |
+| building_name  | text      | null: false                          |
+| phone_number   | string    | null: false                          |
 
 
 ### Association
