@@ -44,22 +44,22 @@ RSpec.describe User, type: :model do
       it 'last_nameが空では登録できない' do
         @user.last_name = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("Last name can't be blank", "Last name is invalid. Input full-width characters.")
+        expect(@user.errors.full_messages).to include("Last name can't be blank")
       end
       it 'first_nameが空では登録できない' do
         @user.first_name = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name can't be blank", "First name is invalid. Input full-width characters.")
+        expect(@user.errors.full_messages).to include("First name can't be blank")
       end
       it 'last_name_detailsが空では登録できない' do
         @user.last_name_details = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("Last name details can't be blank", "Last name details is invalid. Input full-width katakana characters.")
+        expect(@user.errors.full_messages).to include("Last name details can't be blank")
       end
       it 'first_name_detailsが空では登録できない' do
         @user.first_name_details = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name details can't be blank", "First name details is invalid. Input full-width katakana characters.")
+        expect(@user.errors.full_messages).to include("First name details can't be blank")
       end
       it 'birthdayが空では登録できない' do
         @user.birthday = ''
@@ -101,23 +101,26 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Email is invalid")
       end
       it 'passwordが5文字以下では登録できない' do
-        @user.password = '00000'
-        @user.password_confirmation = '0000'
+        @user.password = '0000f'
+        @user.password_confirmation = '000f'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
       end
       it 'passwordは英語のみでは登録できない' do
         @user.password = 'tttttt'
+        @user.password_confirmation = 'tttttt'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password Please set including both letters and numbers")
       end
       it 'passwordは数字のみでは登録できない' do
         @user.password = '666666'
+        @user.password_confirmation = '666666'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password Please set including both letters and numbers")
       end
       it 'passwordは全角では登録できない' do
         @user.password = 'TTTTTT'
+        @user.password_confirmation = 'TTTTTT'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password Please set including both letters and numbers")
       end
