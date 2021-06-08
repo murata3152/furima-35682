@@ -4,7 +4,7 @@ class CreateItems < ActiveRecord::Migration[6.0]
 
       t.text       :details,      null: false
       t.string     :item_name,    null: false
-      t.string     :price,        null: false
+      t.integer    :price,        null: false
       t.integer    :status_id,    null: false
       t.integer    :postage_id,   null: false
       t.integer    :area_id,      null: false
