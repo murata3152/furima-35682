@@ -49,8 +49,10 @@ class ItemsController < ApplicationController
   end
 
   def move_to_edit
-    unless @item.user_id == current_user.id
-      redirect_to action: :index
+    if @item.user_id == current_user.id
+      redirect_to root_path
+    elsif @item.buy != nil
+      redirect_to root_path
    end
   end
 
