@@ -1,6 +1,6 @@
 class BuysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
-  before_action :set_buy, only: [:index, :create,]
+  before_action :set_buy, only: [:index, :create]
   before_action :correct_buy, only: [:index, :create]
   
   

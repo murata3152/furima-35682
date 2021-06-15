@@ -10,7 +10,7 @@ class BuyAddress
     validates :address
     validates :user_id
     validates :item_id
-    validates :phone_number, format: {with: /\A0[9]0\d{8}\z/, message: "can't be blank"}
+    validates :phone_number, format: {with: /\A\d{10,11}\z/, message: "can't be blank"}
     validates :prefecture_id, numericality: {other_than: 0, message: "can't be blank"}
   end
 
