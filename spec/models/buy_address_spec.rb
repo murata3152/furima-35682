@@ -20,6 +20,16 @@ RSpec.describe BuyAddress, type: :model do
     end
 
     context '内容に問題がある場合' do
+      it 'user_idが空だと購入できないこと' do
+        @buy_address.user_id = ''
+        @buy_address.valid?
+        expect(@buy_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空だと購入できないこと' do
+        @buy_address.item_id = ''
+        @buy_address.valid?
+        expect(@buy_address.errors.full_messages).to include("Item can't be blank")
+      end
       it 'postal_codeが空だと購入できないこと' do
         @buy_address.postal_code = ''
         @buy_address.valid?

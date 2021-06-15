@@ -1,6 +1,6 @@
 class BuysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
-  before_action :set_buy, only: [:index, :create, :correct_buy]
+  before_action :set_buy, only: [:index, :create,]
   before_action :correct_buy, only: [:index, :create]
   
   
@@ -20,15 +20,9 @@ class BuysController < ApplicationController
     end
   end
 
-  def correct_buy
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    end
-  end
-
   private
   def buy_params
-    params.require(:buy_address).permit(:postal_code, :municipality, :address, :phone_number, :building_name, :prefecture_id, :day_id).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:buy_address).permit(:postal_code, :municipality, :address, :phone_number, :building_name, :prefecture_id).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def pay_item
@@ -42,6 +36,14 @@ class BuysController < ApplicationController
 
   def set_buy
     @item = Item.find(params[:item_id])
+  end
+
+  def correct_buy
+    if current_user.id == @item.user_id
+      redirect_to root_path
+    elsif @item.buy != nil
+      redirect_to root_path
+    end
   end
 
 end
