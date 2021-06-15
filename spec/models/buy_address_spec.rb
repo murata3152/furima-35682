@@ -54,17 +54,17 @@ RSpec.describe BuyAddress, type: :model do
       it 'phone_numberが半角数字のみでないと購入できない' do
         @buy_address.phone_number = '090hijk222２'
         @buy_address.valid?
-        expect(@buy_address.errors.full_messages).to include("Phone_number can't be blank")
+        expect(@buy_address.errors.full_messages).to include("Phone number can't be blank")
       end
       it 'phone_numberが全角数字だと購入できない' do
         @buy_address.phone_number = '１２３４５６７８９０１'
         @buy_address.valid?
-        expect(@buy_address.errors.full_messages).to include("Phone_number can't be blank")
+        expect(@buy_address.errors.full_messages).to include("Phone number can't be blank")
       end
       it 'phone_numberが12桁以上だと購入できないこと' do
         @buy_address.phone_number = '123456789012'
         @buy_address.valid?
-        expect(@buy_address.errors.full_messages).to include("Phone_number can't be blank")
+        expect(@buy_address.errors.full_messages).to include("Phone number can't be blank")
       end
 
       it 'tokenが空だと購入できないこと' do
