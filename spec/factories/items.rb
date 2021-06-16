@@ -8,6 +8,7 @@ FactoryBot.define do
     area_id       {Faker::Number.between(from: 1, to: 47)}
     day_id        {Faker::Number.between(from: 1, to: 3)}
     category_id   {Faker::Number.between(from: 1, to: 10)}
+    
 
     association :user
     after(:build) do |item|
