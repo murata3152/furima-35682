@@ -39,9 +39,7 @@ class BuysController < ApplicationController
   end
 
   def correct_buy
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    elsif @item.buy != nil
+    if current_user.id == @item.user_id && @item.buy != nil
       redirect_to root_path
     end
   end

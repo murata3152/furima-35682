@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :show, :update, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :move_to_edit, only: [:edit, :update, :destroy]
 
@@ -49,9 +49,7 @@ class ItemsController < ApplicationController
   end
 
   def move_to_edit
-    if @item.user_id == current_user.id
-      redirect_to root_path
-    elsif @item.buy != nil
+    if @item.user_id == current_user.id && @item.buy != nil
       redirect_to root_path
    end
   end
